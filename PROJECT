@@ -1,0 +1,7 @@
+domain: unit.crd.com
+repo: kunit
+resources:
+- group: custom
+  kind: Unit
+  version: v1
+version: "2"
