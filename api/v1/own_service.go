@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
-type ServicePortStatus struct {
+type ServicePort struct {
 	Name       string             `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
 	Protocol   string             `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
 	Port       int32              `json:"port" protobuf:"varint,3,opt,name=port"`
@@ -16,4 +16,9 @@ type ServicePortStatus struct {
 type OwnService struct {
 	Ports     []corev1.ServicePort `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port" protobuf:"bytes,1,rep,name=ports"`
 	ClusterIP string               `json:"clusterIp,omitempty" protobuf:"bytes,3,opt,name=clusterIp"`
+}
+
+type ServicePortStatus struct {
+	corev1.ServicePort `json:"servicePort,omitempty"`
+	Health             bool `json:"health,omitempty"`
 }

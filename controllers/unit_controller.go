@@ -27,6 +27,17 @@ import (
 	customv1 "kunit/api/v1"
 )
 
+type OwnResource interface {
+	// unit generate build-in resource
+	MakeOwnResource(instance *customv1.Unit, logger logr.Logger, scheme *runtime.Scheme) (interface{}, error)
+	// resource exits
+	OwnResourceExist(instance *customv1.Unit, client client.Client, logger logr.Logger) (bool, interface{}, error)
+	// update Unit status
+	UpdateOwnResourceStatus(instance *customv1.Unit, client client.Client, logger logr.Logger) (*customv1.Unit, error)
+	// create/update own build-in resource
+	ApplyOwnResource(instance *customv1.Unit, client client.Client, logger logr.Logger, scheme *runtime.Scheme) error
+}
+
 // UnitReconciler reconciles a Unit object
 type UnitReconciler struct {
 	client.Client
