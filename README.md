@@ -22,4 +22,6 @@ kubebuilder init --domain unit.crd.com
 # 为CRD生成API groupVersion
 # kubebuilder create api --group custom --version v1 --kind Unit
 kubebuilder create api --group ${group} --version ${version} --kind ${CRD}
+# 创建Adminssion Webhook
+kubebuilder create webhook --group custom --version v1 --kind Unit --defaulting --programmatic-validation
 ```

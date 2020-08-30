@@ -81,6 +81,8 @@ type UnitRelationEndpointStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:subresource:scale:specpath=.spec.replicas,statuspath=.status.replicas,selectorpath=.status.selector
 
 // Unit is the Schema for the units API
 type Unit struct {

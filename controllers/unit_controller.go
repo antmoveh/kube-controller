@@ -49,6 +49,12 @@ type UnitReconciler struct {
 
 // +kubebuilder:rbac:groups=custom.unit.crd.com,resources=units,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=custom.unit.crd.com,resources=units/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=apps,resources=statefulSet,verbs=get;update;patch;delete
+// +kubebuilder:rbac:groups=apps,resources=deployment,verbs=get;update;patch;delete
+// +kubebuilder:rbac:groups=core,resources=service,verbs=get;update;patch;delete
+// +kubebuilder:rbac:groups=core,resources=endpoint,verbs=get
+// +kubebuilder:rbac:groups=core,resources=persistentVolumeClaimStatus,verbs=get;update;patch;delete
+// +kubebuilder:rbac:groups=extensions,resources=ingress,verbs=get;update;patch;delete
 
 func (r *UnitReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	//_ = context.Background()
