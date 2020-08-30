@@ -56,7 +56,7 @@ type UnitStatus struct {
 	LastUpdateTime metav1.Time `json:"lastUpdateTime,omitempty"`
 
 	BaseDeployment         appsv1.DeploymentStatus    `json:"deployment,omitempty"`
-	BaseStatefulSet        appsv1.StatefulSet         `json:"statefulSet,omitempty"`
+	BaseStatefulSet        appsv1.StatefulSetStatus   `json:"statefulSet,omitempty"`
 	RelationResourceStatus UnitRelationResourceStatus `json:"relationResourceStatus,omitempty"`
 }
 
