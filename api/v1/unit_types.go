@@ -25,6 +25,16 @@ import (
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+type UnitRelationResourceSpec struct {
+	Service *OwnService `json:"serviceInfo,omitempty"`
+	PVC     *OwnPVC     `json:"pvcInfo,omitempty"`
+	Ingress *OwnIngress `json:"ingressInfo,omitempty"`
+}
+
+const (
+	CategoryDeployment  string = "Deployment"
+	CategoryStatefulSet string = "StatefulSet"
+)
 
 // UnitSpec defines the desired state of Unit
 type UnitSpec struct {
@@ -39,12 +49,6 @@ type UnitSpec struct {
 
 	Template         corev1.PodTemplateSpec   `json:"template"`
 	RelationResource UnitRelationResourceSpec `json:"relationResource,omitempty"`
-}
-
-type UnitRelationResourceSpec struct {
-	Service *OwnService `json:"serviceInfo,omitempty"`
-	PVC     *OwnPVC     `json:"pvcInfo,omitempty"`
-	Ingress *OwnIngress `json:"ingressInfo,omitempty"`
 }
 
 // UnitStatus defines the observed state of Unit

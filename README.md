@@ -24,4 +24,14 @@ kubebuilder init --domain unit.crd.com
 kubebuilder create api --group ${group} --version ${version} --kind ${CRD}
 # 创建Adminssion Webhook
 kubebuilder create webhook --group custom --version v1 --kind Unit --defaulting --programmatic-validation
+
+Default() 用于修改，即对应mutating webhook
+ValidateCreate()用于校验，对应validating webhook
+ValidateUpdate()用于校验，对应validating webhook
+ValidateDelete()用于校验，对应validating webhook
+```
+
+##### deploy and debug
+```cassandraql
+
 ```
