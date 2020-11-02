@@ -1,0 +1,48 @@
+
+apiVersion: custom.unit.crd.com/v1
+kind: Unit
+metadata:
+  labels:
+    name: world
+  name: world
+  namespace: default
+spec:
+  category: deployment
+  replicas: 1
+  selector:
+    matchLabels:
+      name: world
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        created-by: kubeless
+        function: go-get
+    spec:
+      containers:
+        - env:
+            - name: NAME
+              value: nginx
+          image: nginx:latest
+          imagePullPolicy: IfNotPresent
+          name: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+  relationResource:
+    serviceInfo:
+      ports:
+      - name: nginx
+        port: 80
+        protocol: TCP
+        targetPort: 80
+        nodePort: 31080
