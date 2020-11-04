@@ -28,7 +28,7 @@ type ServicePort struct {
 type OwnService struct {
 	Ports     []corev1.ServicePort `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port" protobuf:"bytes,1,rep,name=ports"`
 	ClusterIP string               `json:"clusterIp,omitempty" protobuf:"bytes,3,opt,name=clusterIp"`
-	Type corev1.ServiceType `json:"type,omitempty" protobuf:"bytes,4,opt,name=type,casttype=ServiceType"`
+	Type      corev1.ServiceType   `json:"type,omitempty" protobuf:"bytes,4,opt,name=type,casttype=ServiceType"`
 }
 
 type ServicePortStatus struct {

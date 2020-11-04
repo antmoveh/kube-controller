@@ -32,6 +32,16 @@ ValidateDelete()用于校验，对应validating webhook
 ```
 
 ##### deploy and debug
-```cassandraql
+```
+# move kubectl and /root/.kube/config in this env
+# install crd
+make install 
+# adminwebhooks need /tmp/k8s-webhook-server/serving-certs/tls.{crt,key}
 
+# local debug
+make run ENABLE_WEBHOOKS=false
+
+# deploy
+make docker-build docker-push IMG=docker.g.com/project-name:tag
+make deploy IMG=docker.g.com/project-name:tag
 ```
