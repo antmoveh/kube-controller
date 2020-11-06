@@ -142,7 +142,8 @@ func (r *UnitReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	// 5 记录结果
 	if !success {
 		msg := fmt.Sprintf("Reconciler Unit %s/%s failed", instance.Namespace, instance.Name)
-		r.Log.Error(err, msg)
+		fmt.Println(msg)
+		// r.Log.Error(err, msg)
 		return ctrl.Result{}, err
 	} else {
 		msg := fmt.Sprintf("Reconciler Unit %s/%s success", instance.Namespace, instance.Name)

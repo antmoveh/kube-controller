@@ -7,7 +7,7 @@ metadata:
   name: world
   namespace: default
 spec:
-  category: deployment
+  category: Deployment
   replicas: 1
   selector:
     matchLabels:
@@ -19,8 +19,7 @@ spec:
         prometheus.io/port: "8080"
         prometheus.io/scrape: "true"
       labels:
-        created-by: kubeless
-        function: go-get
+        name: world
     spec:
       containers:
         - env:

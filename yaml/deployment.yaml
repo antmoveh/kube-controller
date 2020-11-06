@@ -1,0 +1,122 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kunit-admin
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*'
+    verbs:
+      - '*'
+  - nonResourceURLs:
+      - '*'
+    verbs:
+      - '*'
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kunit-sa
+  namespace: kunit-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kunit-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kunit-admin
+subjects:
+  - kind: ServiceAccount
+    name: kunit-sa
+    namespace: kunit-system
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: kunit-controller-manager
+  namespace: kunit-system
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        control-plane: controller-manager
+    spec:
+      containers:
+        - env:
+            - name: PORT
+              value: "8080"
+          image: docker.gridsumdissector.com/test/c1:v1
+          imagePullPolicy: IfNotPresent
+          name: manager
+          resources:
+            limits:
+              cpu: 100m
+              memory: 30Mi
+            requests:
+              cpu: 100m
+              memory: 20Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          args:
+            - --metrics-addr=0.0.0.0:8080
+            - --enable-leader-election
+          command:
+            - /manager
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /tmp/k8s-webhook-server/serving-certs/
+              readOnly: true
+          securityContext: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: kunit-sa
+      serviceAccountName: kunit-sa
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: kunit
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: kunit-manager
+  namespace: kunit-system
+spec:
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    control-plane: controller-manager
+  sessionAffinity: None
+  type: ClusterIP
