@@ -91,3 +91,8 @@ openssl req -new -key "${tmpdir}"/server-key.pem -subj "/CN=${service}.${namespa
 第二种方案
 将namespace/kunit-system的service/kunit-webhook-service的endpoint更改为你的本地地址，这样证书无需修改。
 ```
+##### 参考文章
+- https://segmentfault.com/a/1190000020359577
+- https://blog.hdls.me/15564491070483.html
+- https://blog.hdls.me/15564491070483.html
+- https://blog.upweto.top/gitbooks/kubebuilder/%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E5%92%8C%E5%8F%91%E5%B8%83Controller.html
