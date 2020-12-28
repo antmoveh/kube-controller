@@ -31,7 +31,7 @@ ValidateUpdate()用于校验，对应validating webhook
 ValidateDelete()用于校验，对应validating webhook
 ```
 
-##### 官方部署方式
+#### 官方部署方式1
 ```
 # 基本操作
 kubectl api-resources
@@ -51,10 +51,10 @@ make docker-build docker-push IMG=docker.g.com/project-name:tag
 make deploy IMG=docker.g.com/project-name:tag
 ```
 
-#### 自定义部署方案
+#### 自定义部署方案2
 ```
 # 由于官方模块使用了kube-proxy-rbac镜像，在此我们不使用内置镜像的方法，而是采用serviceaccount
-kubectl yaml/deployment.yaml
+kubectl -f yaml/deployment.yaml
 ```
 
 #### adminwebhook 证书
