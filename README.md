@@ -1,98 +1,12 @@
-#### kcontrolcrd
->- 实现kubernetes自定义资源
+### kcontroller是一个学习kubernetes开发的项目，在该项目中会尽量使用各种不同的方式来进行kubernetes的开发工作，在该项目中业务逻辑并非重点，笔者会设计操作非常简单的CRD资源避免因为过多的业务逻辑导致理解困惑
 
-- 自定义资源Unit，将Ingress StatefulSet Service PVC 关系强绑定为应用
+### 笔者之所以进行该项目的编写，一是因为kubernetes开发方式多种多样笔者深感精力有限无法在需要时迅速查找，因此写一个尽量包含各种使用方式的Demo，二是可以为其他做Kubernetes开发的小伙伴做一个示例项目，不用各处寻找资料
 
-```
-# 自定义
-export CRD=Unit
-export group=custom
-export version=v1
+### 毕竟是一个示例项目，不可能进行详细的文章类描述，最佳使用方法，还是当一个工具书性质的项目
 
-mkdir -p CRD/${CRD} && cd CRD/${CRD}
+#### 目录
 
-export GO111MODULE=on
+##### +kubebuilder
 
-# 如果路径位于GOPATH/src下，go mod这一步可省略
-go mod init ${CRD}
-
-# domian可自定义
-kubebuilder init --domain unit.crd.com
-
-# 为CRD生成API groupVersion
-# kubebuilder create api --group custom --version v1 --kind Unit
-kubebuilder create api --group ${group} --version ${version} --kind ${CRD}
-# 创建Adminssion Webhook
-kubebuilder create webhook --group custom --version v1 --kind Unit --defaulting --programmatic-validation
-
-Default() 用于修改，即对应mutating webhook
-ValidateCreate()用于校验，对应validating webhook
-ValidateUpdate()用于校验，对应validating webhook
-ValidateDelete()用于校验，对应validating webhook
-```
-
-#### 官方部署方式1
-```
-# 基本操作
-kubectl api-resources
-kubectl api-versions
-kubectl get crd
-
-# move kubectl and /root/.kube/config in this env
-# install crd
-make install 
-# adminwebhooks need /tmp/k8s-webhook-server/serving-certs/tls.{crt,key}
-
-# local debug
-make run ENABLE_WEBHOOKS=false
-
-# deploy
-make docker-build docker-push IMG=docker.g.com/project-name:tag
-make deploy IMG=docker.g.com/project-name:tag
-```
-
-#### 自定义部署方案2
-```
-# 由于官方模块使用了kube-proxy-rbac镜像，在此我们不使用内置镜像的方法，而是采用serviceaccount
-kubectl -f yaml/deployment.yaml
-```
-
-#### adminwebhook 证书
-```
-# 官方提供的webhook证书方位为部署certmanager，但是观察其他CRD服务均未使用certmanager的方案
-# 参考istio 使用自签名证书
-./yaml/gen_webhookca.sh --service kunit-webhook-service --namespace kunit-system --secret kunit
-# 配置webhook caBundle
-CA_BUNDLE=$(kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.certificate-authority-data}')
-sed -i "s#\${CA_BUNDLE}#${CA_BUNDLE}#g" yaml/webhook.yaml
-kubectl apply -f yaml/webhook.yaml
-# 会创建csr secret，将secret挂载到容器/tmp/k8s-webhook-server/serving-certs即可使adminwebhook正常工作
-```
-
-#### adminwebhook本地调试
-```
-yaml/webook.yaml中
-   service:
-        name: kunit-webhook-service
-        namespace: kunit-system
-        path: /mutate-custom-unit-crd-com-v1-unit
-        port: 443
-更改为url: https://192.168.56.102:9443/mutate-custom-unit-crd-com-v1-unit
-
-yaml/gen_webhookca.sh生成签名部分增加Ip
-[alt_names]
-IP.1 = 192.168.56.102
-DNS.1 = ${service}
-DNS.2 = ${service}.${namespace}
-DNS.3 = ${service}.${namespace}.svc
-# CN=换成IP
-openssl req -new -key "${tmpdir}"/server-key.pem -subj "/CN=${service}.${namespace}.svc" -out "${tmpdir}"/server.csr -config "${tmpdir}"/csr.conf
-
-第二种方案
-将namespace/kunit-system的service/kunit-webhook-service的endpoint更改为你的本地地址，这样证书无需修改。
-```
-##### 参考文章
-- https://segmentfault.com/a/1190000020359577
-- https://blog.hdls.me/15564491070483.html
-- https://blog.hdls.me/15708754600835.html
-- https://blog.upweto.top/gitbooks/kubebuilder/%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E5%92%8C%E5%8F%91%E5%B8%83Controller.html
+- crd 
+- adminssion webhook

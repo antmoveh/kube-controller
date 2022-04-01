@@ -56,5 +56,4 @@ $ make install
 
 #### 参考文章
 
-[kubebuilder学习笔记]: https://segmentfault.com/a/1190000020359577
-
+[kubebuilder学习笔记](https://segmentfault.com/a/1190000020359577 )
