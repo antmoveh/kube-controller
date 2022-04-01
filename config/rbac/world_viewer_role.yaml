@@ -1,20 +1,20 @@
-# permissions for end users to view units.
+# permissions for end users to view worlds.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: unit-viewer-role
+  name: world-viewer-role
 rules:
 - apiGroups:
-  - custom.unit.crd.com
+  - study.example.cn
   resources:
-  - units
+  - worlds
   verbs:
   - get
   - list
   - watch
 - apiGroups:
-  - custom.unit.crd.com
+  - study.example.cn
   resources:
-  - units/status
+  - worlds/status
   verbs:
   - get

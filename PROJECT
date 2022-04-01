@@ -1,7 +1,26 @@
-domain: unit.crd.com
-repo: kunit
+domain: example.cn
+layout:
+- go.kubebuilder.io/v3
+multigroup: true
+projectName: kube-develop-tools
+repo: github/antmoveh/kube-develop-tools
 resources:
-- group: custom
-  kind: Unit
-  version: v1
-version: "2"
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: example.cn
+  group: study
+  kind: World
+  path: github/antmoveh/kube-develop-tools/api/v1beta1
+  version: v1beta1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: example.cn
+  group: common.scope.cluster
+  kind: Cluster
+  path: github/antmoveh/kube-develop-tools/apis/common.scope.cluster/v1beta1
+  version: v1beta1
+version: "3"

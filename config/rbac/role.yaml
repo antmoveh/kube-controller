@@ -7,51 +7,9 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - apps
+  - common.scope.cluster.example.cn
   resources:
-  - deployment
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - apps
-  resources:
-  - statefulSet
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - endpoint
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - persistentVolumeClaimStatus
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - service
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - custom.unit.crd.com
-  resources:
-  - units
+  - clusters
   verbs:
   - create
   - delete
@@ -61,19 +19,42 @@ rules:
   - update
   - watch
 - apiGroups:
-  - custom.unit.crd.com
+  - common.scope.cluster.example.cn
   resources:
-  - units/status
+  - clusters/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - common.scope.cluster.example.cn
+  resources:
+  - clusters/status
   verbs:
   - get
   - patch
   - update
 - apiGroups:
-  - extensions
+  - study.example.cn
   resources:
-  - ingress
+  - worlds
   verbs:
+  - create
   - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - study.example.cn
+  resources:
+  - worlds/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - study.example.cn
+  resources:
+  - worlds/status
+  verbs:
   - get
   - patch
   - update
