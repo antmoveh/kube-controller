@@ -5,7 +5,7 @@ metadata:
   name: cluster-viewer-role
 rules:
 - apiGroups:
-  - common.scope.cluster.example.cn
+  - common.example.cn
   resources:
   - clusters
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - common.scope.cluster.example.cn
+  - common.example.cn
   resources:
   - clusters/status
   verbs:

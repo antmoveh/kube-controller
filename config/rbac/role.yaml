@@ -7,7 +7,7 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - common.scope.cluster.example.cn
+  - common
   resources:
   - clusters
   verbs:
@@ -19,13 +19,13 @@ rules:
   - update
   - watch
 - apiGroups:
-  - common.scope.cluster.example.cn
+  - common
   resources:
   - clusters/finalizers
   verbs:
   - update
 - apiGroups:
-  - common.scope.cluster.example.cn
+  - common
   resources:
   - clusters/status
   verbs:

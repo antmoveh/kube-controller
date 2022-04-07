@@ -30,7 +30,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common.scope.cluster/v1beta1"
+	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common/v1beta1"
 	//+kubebuilder:scaffold:imports
 )
 

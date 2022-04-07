@@ -37,7 +37,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common.scope.cluster/v1beta1"
+	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common/v1beta1"
 )
 
 // ClusterReconciler reconciles a Cluster object
@@ -47,9 +47,9 @@ type ClusterReconciler struct {
 	Recorder record.EventRecorder
 }
 
-//+kubebuilder:rbac:groups=common.scope.cluster,resources=clusters,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=common.scope.cluster,resources=clusters/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=common.scope.cluster,resources=clusters/finalizers,verbs=update
+//+kubebuilder:rbac:groups=common,resources=clusters,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=common,resources=clusters/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=common,resources=clusters/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

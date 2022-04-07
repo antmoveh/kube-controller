@@ -18,6 +18,7 @@ package controllers
 
 import (
 	"context"
+	studyv1beta1 "github/antmoveh/kube-develop-tools/apis/study/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/rand"
 
@@ -26,8 +27,6 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	studyv1beta1 "github/antmoveh/kube-develop-tools/api/v1beta1"
 )
 
 // WorldReconciler reconciles a World object

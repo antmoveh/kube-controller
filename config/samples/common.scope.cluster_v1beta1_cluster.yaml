@@ -1,4 +1,4 @@
-apiVersion: common.scope.cluster.example.cn/v1beta1
+apiVersion: common.example.cn/v1beta1
 kind: Cluster
 metadata:
   name: cluster-sample

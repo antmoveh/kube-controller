@@ -17,6 +17,7 @@ limitations under the License.
 package controllers
 
 import (
+	studyv1beta1 "github/antmoveh/kube-develop-tools/apis/study/v1beta1"
 	"path/filepath"
 	"testing"
 
@@ -30,7 +31,6 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	studyv1beta1 "github/antmoveh/kube-develop-tools/api/v1beta1"
 	//+kubebuilder:scaffold:imports
 )
 

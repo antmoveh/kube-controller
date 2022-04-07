@@ -20,6 +20,8 @@ import (
 	"flag"
 	"os"
 
+	studyv1beta1 "github/antmoveh/kube-develop-tools/apis/study/v1beta1"
+
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
@@ -31,8 +33,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	studyv1beta1 "github/antmoveh/kube-develop-tools/api/v1beta1"
-	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common.scope.cluster/v1beta1"
+	commonscopeclusterv1beta1 "github/antmoveh/kube-develop-tools/apis/common/v1beta1"
+	studyv1beta2 "github/antmoveh/kube-develop-tools/apis/study/v1beta2"
 	"github/antmoveh/kube-develop-tools/controllers"
 	commonscopeclustercontrollers "github/antmoveh/kube-develop-tools/controllers/common.scope.cluster"
 	//+kubebuilder:scaffold:imports
@@ -48,6 +50,7 @@ func init() {
 
 	utilruntime.Must(studyv1beta1.AddToScheme(scheme))
 	utilruntime.Must(commonscopeclusterv1beta1.AddToScheme(scheme))
+	utilruntime.Must(studyv1beta2.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -94,6 +97,10 @@ func main() {
 		Recorder: mgr.GetEventRecorderFor("cluster-recorder"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Cluster")
+		os.Exit(1)
+	}
+	if err = (&studyv1beta1.World{}).SetupWebhookWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create webhook", "webhook", "World")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

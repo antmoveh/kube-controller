@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package v1beta1 contains API Schema definitions for the common.scope.cluster v1beta1 API group
+// Package v1beta1 contains API Schema definitions for the common v1beta1 API group
 //+kubebuilder:object:generate=true
 //+groupName=common.scope.cluster
 package v1beta1
