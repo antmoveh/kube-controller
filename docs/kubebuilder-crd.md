@@ -45,10 +45,10 @@ $ kubebuilder create api --group common --version v1beta1 --kind Cluster
 ##### 4. api迁移
 
 ```shell
-# 当初次使用kubebuilder时，我们会初始化一个domain，我们可以在PROJECT中删除头部domain
+# 当初次使用kubebuilder时，我们会初始化一个domain，现在我们启用多Group了那个就可以在PROJECT文件头部删除domain
 # 多组crd生成的资源均在apis目录下，要迁移api中的内容迁移到apis目录下
-# 在生成的多组CRD资源，如不符合需求，可以手动修改分组等
-# 如果要使用kustomiza，注意修改config/crd/kustomization.yaml中的文件路径，通过报错内容也可以找到修改内容
+# 生成的multi-Group CRD资源，如不符合需求，可以手动修改Group等内容
+# 如果要使用kustom，如有报路径错误，注意修改config/crd/kustomization.yaml中的内容
 ```
 
 ##### 4. 生成CRD控制器及部署资源
