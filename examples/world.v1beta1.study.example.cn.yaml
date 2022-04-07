@@ -1,0 +1,6 @@
+apiVersion: study.example.cn/v1beta1
+kind: World
+metadata:
+  name: world-sample
+spec:
+  world: "hello"
