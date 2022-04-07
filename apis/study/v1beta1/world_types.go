@@ -36,12 +36,13 @@ type WorldStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	War string `json:"war,omitempty"`
+	War      string      `json:"war,omitempty"`
 	SyncTime metav1.Time `json:"syncTime,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 // +kubebuilder:resource:shortName=wd
 // +kubebuilder:printcolumn:name="world",type="string",JSONPath=".spec.world"
 // +kubebuilder:printcolumn:name="war",type="string",JSONPath=".status.war"
