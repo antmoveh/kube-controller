@@ -26,7 +26,8 @@ type Job struct {
 }
 ```
 
-- 存储版本需要实现Hub方法`apis/study/v1beta1/world_conversion.go`，其他版本需要实现向存储版本的转换方法`apis/study/v1beta2/world_conversion.go`，假设有v1beta1、v1beta2和v1beta3它们之间的转换是通过存储版本转换的，并不会存在v1beta2和v1beta3直接转换方法，k8s资源多版本兼容也是如此实现的。这样引申出一个特性在我们的控制器中只要监听任意版本的资源均可，因为我们实现了CRD的转换方法
+- 存储版本需要实现Hub方法`apis/study/v1beta1/world_conversion.go`，其他版本需要实现向存储版本的转换方法`apis/study/v1beta2/world_conversion.go`
+- 假设有v1beta1、v1beta2和v1beta3它们之间的转换是通过存储版本转换的，并不会存在v1beta2和v1beta3直接转换方法，k8s资源多版本兼容也是如此实现的。这样引申出一个特性在我们的控制器中只要监听任意版本的资源均可，因为我们实现了CRD的转换方法
 - CRD的转换方法是一个webhook，这个webhook的service定义在crd.yaml `deploy/crd.yaml`中
 
 ```yaml

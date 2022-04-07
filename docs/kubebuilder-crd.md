@@ -38,8 +38,6 @@ $ kubebuilder create api --group custom --version v1beta1 --kind Abbc
 $ kubebuilder edit --multigroup=true
 # 创建CRD，会创建到apis目录下,这样生成的Group为common.scope.cluster.domain.cn，注意在代码中删除domain.cn
 $ kubebuilder create api --group common --version v1beta1 --kind Cluster
-
-
 ```
 
 ##### 4. api迁移
